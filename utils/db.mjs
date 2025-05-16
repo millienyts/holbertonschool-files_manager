@@ -1,4 +1,6 @@
-import { MongoClient } from 'mongodb';
+import mongodb from 'mongodb';
+
+const { MongoClient } = mongodb;
 
 const host = process.env.DB_HOST || 'localhost';
 const port = process.env.DB_PORT || 27017;
@@ -25,12 +27,12 @@ class DBClient {
   }
 
   async nbUsers() {
-    if (!this.isAlive()) return 0;
+    if (!this.db) return 0;
     return this.db.collection('users').countDocuments();
   }
 
   async nbFiles() {
-    if (!this.isAlive()) return 0;
+    if (!this.db) return 0;
     return this.db.collection('files').countDocuments();
   }
 }
